@@ -1,0 +1,7 @@
+FROM raster-vision-gpu
+
+COPY ./wwt /opt/src/wwt
+
+ENV TMPDIR=/opt/data/tmp
+
+CMD ["bash"]
