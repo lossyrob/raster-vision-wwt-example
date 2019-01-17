@@ -19,10 +19,20 @@ class ChipClassificationExperiments(rv.ExperimentSet):
 
         CHIP_SIZE = 300
 
-        # THIS MODEL DOES NOT REQUIRE A  CHIP SIZE
+        # # THIS MODEL DOES NOT REQUIRE A CHIP SIZE
+        # # IF YOU USE THIS, SET THE "model" PART OF "with_template" BELOW TO READ:
+        # #
+        # # "model": {
+        # #   "input_size": CHIP_SIZE,
+        # #   "type": "RESNET50",
+        # #   "model_path": "",
+        # #   "load_weights_by_name": True,
+        # # }
+        # #
+        # # i.e. set 'load_weights_by_name' to True.
         # PRETRAINED_MODEL = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.2/resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5'
 
-        # THIS MODEL REQUIRES CHIP SIZE 200
+        # # THIS MODEL REQUIRES CHIP SIZE 200
         # PRETRAINED_MODEL = ('https://s3.amazonaws.com/azavea-research-public-data/raster-vision/'
         #                     'examples/model-zoo/rio-cc/model-weights.hdf5')
 
