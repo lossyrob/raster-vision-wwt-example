@@ -26,8 +26,7 @@ do
     key="$1"
     case $key in
         --gpu)
-        IMAGE="raster-vision-gpu"
-        RUNTIME="--runtime=nvidia"
+        USE_GPU=TRUE
         shift # past argument
         ;;
         *)    # unknown option
@@ -40,6 +39,7 @@ set -- "${POSITIONAL[@]}" # restore positional parameters
 
 if [ "${USE_GPU}" = "TRUE" ]
 then
+    echo "USING GPU"
     IMAGE="raster-vision-wwt-gpu";
     RUNTIME="--runtime=nvidia"
 else

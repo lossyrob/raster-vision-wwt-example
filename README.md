@@ -25,7 +25,8 @@ This loads the necessary plugins for this project.
 The Raster Vision command that I'm currently working with is:
 
 ```
-rastervision -v -p wwt run local -e wwt.chip_classification -a root_uri /opt/data/rv_root
+rastervision -v -p wwt run local -e wwt.chip_classification -a root_uri /opt/data/rv_root -a test yes
+rastervision -v -p wwt run local -e wwt.object_detection -f *mobilenet*  -a root_uri /opt/data/rv_root -a test yes
 ```
 
 Change to your own `root_uri`.

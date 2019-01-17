@@ -5,7 +5,11 @@ import rastervision as rv
 
 import wwt
 
-def get_scene_configs(data_path, task, create_label_source=None):
+BASE_STATS_JSON_PATH = '/opt/data/rv_root/analyze/wwt-stats/stats.json'
+
+def get_scene_configs(data_path, task,
+                      create_label_source=None,
+                      stats_uri=BASE_STATS_JSON_PATH):
     """Returns a list of SceneConfigs
     """
     def make_scene(img_path, xml_path):
@@ -22,10 +26,14 @@ def get_scene_configs(data_path, task, create_label_source=None):
 
             label_source = create_label_source(xml_path)
 
+        stats_transformer = rv.RasterTransformerConfig.builder(rv.STATS_TRANSFORMER) \
+                                                      .with_stats_uri(stats_uri) \
+                                                      .build()
+
         raster_source = rv.RasterSourceConfig.builder(rv.GEOTIFF_SOURCE) \
                                              .with_uri(img_path) \
                                              .with_channel_order([4,2,1]) \
-                                             .with_stats_transformer() \
+                                             .with_transformer(stats_transformer) \
                                              .build()
 
         return rv.SceneConfig.builder() \

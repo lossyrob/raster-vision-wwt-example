@@ -15,6 +15,7 @@ class ObjectDetectionExperiments(rv.ExperimentSet):
             NUM_STEPS = 10
 
         CHIP_SIZE = 300
+        BANDS = [4,2,1]
 
         task = rv.TaskConfig.builder(rv.OBJECT_DETECTION) \
                             .with_chip_size(CHIP_SIZE) \

@@ -2,7 +2,7 @@ import os
 
 import rastervision as rv
 
-from .data import get_scene_configs
+from .data import (get_scene_configs, BASE_STATS_JSON_PATH)
 
 class ChipClassificationExperiments(rv.ExperimentSet):
     def exp_wwt_resnet50_500chip(self, root_uri, data_uri='/opt/data', test=False):
@@ -15,7 +15,7 @@ class ChipClassificationExperiments(rv.ExperimentSet):
                     .build()
 
         batch_size = 8
-        epochs = 40
+        epochs = 100
         if test:
             print("Running test, EPOCHS = 1")
             epochs = 1
@@ -27,28 +27,30 @@ class ChipClassificationExperiments(rv.ExperimentSet):
                                   .with_train_options(replace_model=True) \
                                   .with_batch_size(batch_size) \
                                   .with_num_epochs(epochs) \
-                                  .with_config({
-                                      "trainer": {
-                                          "options": {
-                                              "saveBest": True,
-                                              "lrSchedule": [
-                                                  {
-                                                      "epoch": 0,
-                                                      "lr": 0.0005
-                                                  },
-                                                  {
-                                                      "epoch": 15,
-                                                      "lr": 0.0001
-                                                  },
-                                                  {
-                                                      "epoch": 30,
-                                                      "lr": 0.00001
-                                                  }
-                                              ]
-                                          }
-                                      }
-                                  }, set_missing_keys=True) \
                                   .build()
+
+                                  # .with_config({
+                                  #     "trainer": {
+                                  #         "options": {
+                                  #             "saveBest": True,
+                                  #             "lrSchedule": [
+                                  #                 {
+                                  #                     "epoch": 0,
+                                  #                     "lr": 0.0005
+                                  #                 },
+                                  #                 {
+                                  #                     "epoch": 15,
+                                  #                     "lr": 0.0001
+                                  #                 },
+                                  #                 {
+                                  #                     "epoch": 30,
+                                  #                     "lr": 0.00001
+                                  #                 }
+                                  #             ]
+                                  #         }
+                                  #     }
+                                  # }, set_missing_keys=True) \
+
 
         def create_label_store(uri):
             return rv.LabelSourceConfig.builder(rv.CHIP_CLASSIFICATION) \
@@ -75,7 +77,6 @@ class ChipClassificationExperiments(rv.ExperimentSet):
                                         .with_task(task) \
                                         .with_backend(backend) \
                                         .with_dataset(dataset) \
-                                        .with_stats_analyzer() \
                                         .with_analyze_key("wwt-stats") \
                                         .build()
 
