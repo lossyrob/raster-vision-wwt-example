@@ -9,9 +9,14 @@ BASE_STATS_JSON_PATH = '/opt/data/rv_root/analyze/wwt-stats/stats.json'
 
 def get_scene_configs(data_path, task,
                       create_label_source=None,
+                      bands=None,
                       stats_uri=BASE_STATS_JSON_PATH):
     """Returns a list of SceneConfigs
     """
+
+    if bands is None:
+        bands = [4,2,1]
+
     def make_scene(img_path, xml_path):
         img_name = os.path.splitext(os.path.basename(img_path))[0]
 
@@ -32,7 +37,7 @@ def get_scene_configs(data_path, task,
 
         raster_source = rv.RasterSourceConfig.builder(rv.GEOTIFF_SOURCE) \
                                              .with_uri(img_path) \
-                                             .with_channel_order([4,2,1]) \
+                                             .with_channel_order(bands) \
                                              .with_transformer(stats_transformer) \
                                              .build()
 

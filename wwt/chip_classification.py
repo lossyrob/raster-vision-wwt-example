@@ -5,7 +5,12 @@ import rastervision as rv
 from .data import (get_scene_configs, BASE_STATS_JSON_PATH)
 
 class ChipClassificationExperiments(rv.ExperimentSet):
-    def exp_wwt_resnet50_500chip(self, root_uri, data_uri='/opt/data', test=False):
+    def exp_wwt_resnet50_500chip(self, root_uri, bands=None, data_uri='/opt/data', test=False):
+        if bands is None:
+            bands = [4,2,1]
+        else:
+            bands = list(map(lambda x: int(x), bands.split(',')))
+
         task = rv.TaskConfig.builder(rv.CHIP_CLASSIFICATION) \
                     .with_chip_size(500) \
                     .with_classes({
@@ -62,7 +67,7 @@ class ChipClassificationExperiments(rv.ExperimentSet):
                                        .with_infer_cells(True) \
                                        .build()
 
-        scenes = get_scene_configs(data_uri, task, create_label_store)
+        scenes = get_scene_configs(data_uri, task, bands, create_label_store)
 
         split_point = int(len(scenes) * 0.8)
 

@@ -14,12 +14,13 @@ class ObjectDetectionExperiments(rv.ExperimentSet):
         if test:
             NUM_STEPS = 10
 
-        CHIP_SIZE = 300
+        CHIP_SIZE = 768
+        BATCH_SIZE = 4
         BANDS = [4,2,1]
 
         task = rv.TaskConfig.builder(rv.OBJECT_DETECTION) \
                             .with_chip_size(CHIP_SIZE) \
-                            .with_classes({"plant": (1, "red")}) \
+                            .with_classes({"WWTP": (1, "red")}) \
                             .with_chip_options(neg_ratio=1.0,
                                                ioa_thresh=0.8) \
                             .with_predict_options(merge_thresh=0.1,
@@ -35,7 +36,7 @@ class ObjectDetectionExperiments(rv.ExperimentSet):
         backend_base = rv.BackendConfig.builder(rv.TF_OBJECT_DETECTION) \
                                     .with_task(task) \
                                     .with_debug(True) \
-                                    .with_batch_size(16) \
+                                    .with_batch_size(BATCH_SIZE) \
                                     .with_num_steps(NUM_STEPS) \
                                     .with_train_options(do_monitoring=True,
                                                         replace_model=True)
