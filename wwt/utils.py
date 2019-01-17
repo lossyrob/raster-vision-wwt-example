@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+from xml.etree.ElementTree import ParseError
 
 from rastervision.utils.files import file_to_str
 
@@ -74,5 +75,14 @@ def label_img_xml_to_geojson(xml, extent, crs_transformer):
 def label_img_str_to_geojson(s, extent, crs_transformer):
     return label_img_xml_to_geojson(ET.fromstring(s), extent, crs_transformer)
 
+
+
 def label_img_file_to_geojson(uri, extent, crs_transformer):
-    return label_img_str_to_geojson(file_to_str(uri), extent, crs_transformer)
+    try:
+        return label_img_str_to_geojson(file_to_str(uri), extent, crs_transformer)
+    except ParseError:
+        print('WARNING: Cannot parse {}'.format(uri))
+        return {
+            'type': 'FeatureCollection',
+            'features': []
+        }

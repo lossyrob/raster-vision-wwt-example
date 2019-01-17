@@ -1,6 +1,7 @@
 FROM raster-vision-cpu
 
 COPY ./wwt /opt/src/wwt
+COPY ./scripts /opt/src/scripts
 
 ENV TMPDIR=/opt/data/tmp
 
