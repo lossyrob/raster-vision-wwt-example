@@ -7,9 +7,8 @@ import wwt
 
 BASE_STATS_JSON_PATH = '/opt/data/rv_root/analyze/wwt-stats/stats.json'
 
-def get_scene_configs(data_path, task,
+def get_scene_configs(data_path, task, bands=None,
                       create_label_source=None,
-                      bands=None,
                       stats_uri=BASE_STATS_JSON_PATH):
     """Returns a list of SceneConfigs
     """
