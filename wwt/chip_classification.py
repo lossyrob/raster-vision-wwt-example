@@ -39,9 +39,8 @@ class ChipClassificationExperiments(rv.ExperimentSet):
 
         # THIS MODEL REQUIRES CHIP SIZE 300
         PRETRAINED_MODEL = (
-            's3://azavea-research-public-data/models/'
-            'cowc-potsdam/classification/resnet50/'
-            'model-weights.hdf5')
+            'https://s3.amazonaws.com/azavea-research-public-data/models/'
+            'cowc-potsdam/classification/resnet50/model-weights.hdf5')
 
         IOA_THRESHOLD = 0.5
 
