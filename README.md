@@ -1,4 +1,4 @@
-# Raster Vision Exmaple for LabelImg training
+# Raster Vision Example for LabelImg training
 
 ## Using
 
